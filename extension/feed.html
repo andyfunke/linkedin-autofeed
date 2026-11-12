@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LinkedIn Autofeed</title>
+    <link rel="icon" href="icon.png">
+    <link rel="stylesheet" href="feed.css">
+    <script type="module" src="feed.js"></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="topbar-inner">
+        <a class="brand" href="#feed"><img src="icon.png" width="30" height="30" alt="">Autofeed</a>
+        <nav aria-label="Autofeed">
+          <a href="#feed" id="feed-tab" aria-current="page">Feed</a>
+          <a href="#following" id="following-tab">Following</a>
+        </nav>
+        <div class="top-actions">
+          <button class="button button-subtle" type="button" id="schedule-open">Schedule</button>
+          <button class="button button-primary" type="button" id="refresh" disabled>Refresh now</button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="introduction" aria-labelledby="page-title">
+        <h1 id="page-title">Your feed</h1>
+        <p id="page-details" class="muted">Past 7 days</p>
+      </section>
+
+      <form id="follow-form" class="panel follow-form">
+        <label for="profile-url">Follow a LinkedIn profile</label>
+        <div class="input-row">
+          <input id="profile-url" type="text" inputmode="url" autocomplete="off" spellcheck="false" required placeholder="linkedin.com/in/profile-name" aria-describedby="follow-message">
+          <button class="button button-primary" type="submit" id="follow-submit">Follow</button>
+        </div>
+        <p class="message" id="follow-message" role="status" hidden></p>
+      </form>
+
+      <div class="status-bar" id="refresh-status" role="status" hidden></div>
+      <div class="status-bar status-error" id="refresh-notice" role="status" hidden></div>
+
+      <section id="feed-view" aria-label="Chronological feed">
+        <div id="feed-list" class="feed-list"></div>
+      </section>
+
+      <section id="following-view" aria-label="Followed profiles" hidden>
+        <label class="search-label" for="profile-search">Find a profile</label>
+        <input id="profile-search" class="search" type="search" autocomplete="off" placeholder="Search by name or LinkedIn URL">
+        <div id="following-list" class="following-list"></div>
+      </section>
+    </main>
+
+    <dialog id="schedule-dialog" aria-labelledby="schedule-title">
+      <form id="schedule-form">
+        <h2 id="schedule-title">Schedule refresh</h2>
+        <label class="check-row" for="schedule-enabled">
+          <input id="schedule-enabled" type="checkbox"> Refresh once a day
+        </label>
+        <label class="time-row" for="schedule-time">
+          <span>Local time</span><input id="schedule-time" type="time" required value="08:00">
+        </label>
+        <p class="muted" id="schedule-details">Runs while Chrome is open and signed in to LinkedIn.</p>
+        <p class="message error" id="schedule-error" role="alert" hidden></p>
+        <div class="dialog-actions">
+          <button class="button button-subtle" type="button" id="schedule-cancel">Cancel</button>
+          <button class="button button-primary" type="submit" id="schedule-save">Save</button>
+        </div>
+      </form>
+    </dialog>
+  </body>
+</html>
